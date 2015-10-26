@@ -16,24 +16,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PongController" translatesAutoresizingMaskIntoConstraints="NO" id="oOD-rH-uT4">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="620"/>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="X" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLQ-Nm-vc4">
+                                <rect key="frame" x="146" y="91" width="158" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEy-Nx-PoV">
+                                <rect key="frame" x="221" y="289" width="216" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Y" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7d-r2-sUK">
+                                <rect key="frame" x="146" y="175" width="180" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="oOD-rH-uT4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="28B-7q-VlI"/>
-                            <constraint firstItem="oOD-rH-uT4" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="5JP-ru-0gv"/>
-                            <constraint firstAttribute="trailing" secondItem="oOD-rH-uT4" secondAttribute="trailing" id="ZXu-K6-bkd"/>
-                            <constraint firstAttribute="bottom" secondItem="oOD-rH-uT4" secondAttribute="bottom" constant="-20" id="wQR-hX-fD5"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pitchLabel" destination="CEy-Nx-PoV" id="BPc-ta-Ci9"/>
+                        <outlet property="rollLabel" destination="w7d-r2-sUK" id="VQI-Qh-o47"/>
+                        <outlet property="yawLabel" destination="yLQ-Nm-vc4" id="mul-rZ-xiq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
-    <resources>
-        <image name="PongController" width="274" height="124"/>
-    </resources>
 </document>

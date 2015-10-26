@@ -69,6 +69,10 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
         print("Sent data through UDP with tag: \(tag)\n")
     }
     
+    func socket(sock: GCDAsyncSocket!, didWriteDataWithTag tag: Int) {
+        print("Data send through TCP-socket \n")
+    }
+    
     func listenToUDPResponse() {
         var error: NSError?
         (udpSocket.beginReceiving(&error))

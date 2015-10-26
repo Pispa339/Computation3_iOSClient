@@ -15,6 +15,7 @@
 		C14DD1331BC64FD9005EA679 /* PongControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14DD1321BC64FD9005EA679 /* PongControllerTests.swift */; };
 		C14DD13D1BC653B1005EA679 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C14DD13C1BC653B1005EA679 /* Podfile */; };
 		C14DD13F1BC653FD005EA679 /* SocketHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14DD13E1BC653FD005EA679 /* SocketHandler.swift */; };
+		F75B44962CF56C75105CDF92 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF83C01C7E26459AD1FA2B /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28CF83C01C7E26459AD1FA2B /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B038934B45892A5D38829A0 /* Pods-PongController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PongController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PongController/Pods-PongController.debug.xcconfig"; sourceTree = "<group>"; };
 		8F4665363333258BC4B19FCF /* Pods-PongController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PongController.release.xcconfig"; path = "Pods/Target Support Files/Pods-PongController/Pods-PongController.release.xcconfig"; sourceTree = "<group>"; };
 		C110E1201BC679E9000973C7 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F75B44962CF56C75105CDF92 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +82,7 @@
 		8DEDEDDB35A45F67B8206A86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28CF83C01C7E26459AD1FA2B /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,12 +112,12 @@
 			children = (
 				C14DD11C1BC64FD8005EA679 /* AppDelegate.swift */,
 				C14DD11E1BC64FD8005EA679 /* ViewController.swift */,
+				C110E1201BC679E9000973C7 /* Bridging-Header.h */,
 				C14DD13E1BC653FD005EA679 /* SocketHandler.swift */,
 				C14DD1201BC64FD8005EA679 /* Main.storyboard */,
 				C14DD1231BC64FD8005EA679 /* Images.xcassets */,
 				C14DD1251BC64FD8005EA679 /* LaunchScreen.xib */,
 				C14DD11A1BC64FD8005EA679 /* Supporting Files */,
-				C110E1201BC679E9000973C7 /* Bridging-Header.h */,
 			);
 			path = PongController;
 			sourceTree = "<group>";
@@ -429,6 +433,7 @@
 				INFOPLIST_FILE = PongController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "./PongController/Bridging-Header.h";
 			};
 			name = Debug;
@@ -441,6 +446,7 @@
 				INFOPLIST_FILE = PongController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "./PongController/Bridging-Header.h";
 			};
 			name = Release;
