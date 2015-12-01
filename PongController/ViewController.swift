@@ -15,47 +15,25 @@ class ViewController: UIViewController {
     
     @IBOutlet var yawLabel: UILabel!
     
-    @IBOutlet var rollLabel: UILabel!
-    
-    @IBOutlet var pitchLabel: UILabel!
+    @IBOutlet var connectButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.sharedApplication().idleTimerDisabled = true
         socketHandler = SocketHandler()
         
         var currentPosition = 0.0
         var destPosition = 0.0
-        
-//        if motionManager.accelerometerAvailable {
-//            motionManager.accelerometerUpdateInterval = 0.1
-//            motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.mainQueue()) {
-//                [weak self] (data: CMAccelerometerData!, error: NSError!) in
-//                
-//                //self?.rollLabel.text = String(format:"%f", data.acceleration.x)
-//                self?.yawLabel.text = String(format:"%f", data.acceleration.y)
-//                if data.acceleration.y < -0.02 {
-//                    currentPosition = currentPosition + data.acceleration.y * 100
-//                }
-//                    
-//                else if data.acceleration.y > 0.02 {
-//                    currentPosition = currentPosition + data.acceleration.y * 100
-//                }
-//                
-//                self?.pitchLabel.text = String(format:"%f", currentPosition)
-//            }
-//        }
-        
+    
         if motionManager.deviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 0.01
             motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) {
                 [weak self] (data: CMDeviceMotion!, error: NSError!) in
                 
                 self?.yawLabel.text = String(format:"%f", data.gravity.y)
-                self?.rollLabel.text = String(format:"%f", data.gravity.x)
+                self?.convertAngleToSpeedString(data.gravity.y)
                 
-                var xValueAsString = String(format:"%f", data.gravity.x)
-                
-                self!.socketHandler.sendStringMessage(xValueAsString + "\n")
+                //self!.socketHandler.sendStringMessage(xValueAsString + "\n")
             }
         }
     }
@@ -63,6 +41,42 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func connectOrDisconnect(sender: AnyObject) {
+        if(self.socketHandler.isConnected() == false){
+            self.socketHandler.tryToEstablishConnectionWithTimer()
+            self.connectButton.setTitle("Disconnect", forState: UIControlState.Normal)
+        }
+        else{
+            self.socketHandler.disconnectConnection()
+            self.connectButton.setTitle("Connect", forState: UIControlState.Normal)
+        }
+        
+    }
+    func convertAngleToSpeedString(angle: Double) {
+        var speedString: String = "still"
+//        if((angle < 0 && angle > -0.1) || (angle > 0 && angle < 0.1)){
+//            
+//        }
+        if(angle < -0.1 && angle > -0.5){
+            speedString = "slowLeft"
+        }
+        
+        if(angle > 0.1 && angle < 0.5){
+            speedString = "slowRight"
+        }
+        
+        if(angle < -0.5){
+            speedString = "fastLeft"
+        }
+        
+        if(angle > 0.5){
+            speedString = "fastRight"
+        }
+        
+        self.socketHandler.sendStringMessage(speedString + "\n")
+        
     }
 
 }

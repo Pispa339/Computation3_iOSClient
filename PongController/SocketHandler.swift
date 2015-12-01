@@ -14,19 +14,22 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
     var myHost = ""
     var myPort: UInt16 = 0
     var timer: NSTimer!
+    var connected = false
     
     
     convenience override init() {
         self.init(fromString: "")
         self.setupUDPSocket()
         self.setupTCPSocket()
-        self.tryToEstablishConnectionWithTimer()
-        
     }
     
     init(fromString string: NSString) {
         myHost = ""
         super.init()
+    }
+    
+    func isConnected() -> Bool {
+        return self.connected
     }
     
     func setupUDPSocket() {
@@ -70,7 +73,7 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
     }
     
     func socket(sock: GCDAsyncSocket!, didWriteDataWithTag tag: Int) {
-        print("Data send through TCP-socket \n")
+        //print("Data send through TCP-socket \n")
     }
     
     func listenToUDPResponse() {
@@ -92,6 +95,7 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
         print("TCP Socket disconnected: \(err.description)\n")
         self.setupUDPSocket()
         self.tryToEstablishConnectionWithTimer()
+        self.connected = false
     }
     
     func connectThroughTCP(ipAddress: String, port: UInt16) {
@@ -138,6 +142,7 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
     
     func socket(sock: GCDAsyncSocket!, didConnectToHost host: String!, port: UInt16) {
         print("TCP-socket connection made with: \(host) : \(port)\n")
+        self.connected = true
     }
     
     func sendStringMessage(stringToSend: String) {
@@ -147,6 +152,10 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
     
     func sendDataThroughTCP(dataToSend: NSData!) {
         tcpSocket.writeData(dataToSend, withTimeout: -1, tag: 99)
+    }
+    
+    func disconnectConnection() {
+        self.tcpSocket.disconnect()
     }
 
 }
