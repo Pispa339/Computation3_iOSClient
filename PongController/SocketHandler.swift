@@ -92,10 +92,11 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
     }
     
     func socketDidDisconnect(socket: GCDAsyncSocket, err: NSError) {
+        self.connected = false
+        self.connectionStateChanged()
         print("TCP Socket disconnected: \(err.description)\n")
         self.setupUDPSocket()
         self.tryToEstablishConnectionWithTimer()
-        self.connected = false
     }
     
     func connectThroughTCP(ipAddress: String, port: UInt16) {
@@ -143,6 +144,7 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
     func socket(sock: GCDAsyncSocket!, didConnectToHost host: String!, port: UInt16) {
         print("TCP-socket connection made with: \(host) : \(port)\n")
         self.connected = true
+        self.connectionStateChanged()
     }
     
     func sendStringMessage(stringToSend: String) {
@@ -156,6 +158,13 @@ class SocketHandler: NSObject, GCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate
     
     func disconnectConnection() {
         self.tcpSocket.disconnect()
+        self.connected = false
+        self.connectionStateChanged()
+    }
+    
+    func connectionStateChanged() {
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.postNotificationName("ConnectionStateChanged", object: nil)
     }
 
 }

@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     @IBOutlet var connectButton: UIButton!
     
+    @IBOutlet var connectingActivityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.sharedApplication().idleTimerDisabled = true
@@ -24,6 +26,9 @@ class ViewController: UIViewController {
         
         var currentPosition = 0.0
         var destPosition = 0.0
+        
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: "connectionStateChanged", name: "ConnectionStateChanged", object: nil)
     
         if motionManager.deviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 0.01
@@ -45,12 +50,16 @@ class ViewController: UIViewController {
     
     @IBAction func connectOrDisconnect(sender: AnyObject) {
         if(self.socketHandler.isConnected() == false){
+            self.connectingActivityIndicator.startAnimating()
+            self.connectButton.setTitle("Connecting...", forState: UIControlState.Normal)
+            self.socketHandler.setupUDPSocket()
+            self.socketHandler.setupTCPSocket()
             self.socketHandler.tryToEstablishConnectionWithTimer()
-            self.connectButton.setTitle("Disconnect", forState: UIControlState.Normal)
         }
         else{
+            self.connectingActivityIndicator.startAnimating()
+            self.connectButton.setTitle("Disconnecting...", forState: UIControlState.Normal)
             self.socketHandler.disconnectConnection()
-            self.connectButton.setTitle("Connect", forState: UIControlState.Normal)
         }
         
     }
@@ -77,6 +86,18 @@ class ViewController: UIViewController {
         
         self.socketHandler.sendStringMessage(speedString + "\n")
         
+    }
+    
+    func connectionStateChanged() {
+        if(self.socketHandler.isConnected() == true){
+            self.connectButton.setTitle("Disconnect", forState: UIControlState.Normal)
+            self.connectingActivityIndicator.stopAnimating()
+        }
+        else{
+            self.connectButton.setTitle("Connect", forState: UIControlState.Normal)
+            self.connectingActivityIndicator.stopAnimating()
+        }
+
     }
 
 }
